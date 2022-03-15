@@ -182,6 +182,8 @@ data "template_file" "setup-active" {
     passive_hb_ip     = var.passive_port3_ip // passive hb ip
     hb_netmask        = var.mgmt_mask        // mgmt netmask
     port1_gateway     = google_compute_subnetwork.public_subnet.gateway_address
+    port2_gateway     = google_compute_subnetwork.private_subnet.gateway_address
+    port2_cidr        = google_compute_subnetwork.private_subnet.ip_cidr_range
     clusterip         = "cluster-ip-${random_string.random_name_post.result}"
     internalroute     = "internal-route-${random_string.random_name_post.result}"
   }
@@ -203,6 +205,8 @@ data "template_file" "setup-passive" {
     active_hb_ip       = var.active_port3_ip // active hb ip
     hb_netmask         = var.mgmt_mask       // mgmt netmask
     port1_gateway      = google_compute_subnetwork.public_subnet.gateway_address
+    port2_gateway     = google_compute_subnetwork.private_subnet.gateway_address
+    port2_cidr        = google_compute_subnetwork.private_subnet.ip_cidr_range
     clusterip          = "cluster-ip-${random_string.random_name_post.result}"
     internalroute      = "internal-route-${random_string.random_name_post.result}"
   }
@@ -348,4 +352,3 @@ output "FortiGate-Username" {
 output "FortiGate-Password" {
   value = google_compute_instance.default.instance_id
 }
-
